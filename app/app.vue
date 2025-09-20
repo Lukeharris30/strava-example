@@ -1,9 +1,17 @@
 <script setup>
 const { loggedIn, user, session, fetch, clear, openInPopup } = useUserSession()
+const { data: results, error } = await useFetch('/api/activities');
+const totalDistance = computed(() => {
+  return results.value.reduce((a,c) => a + c.distance, 0) || []
+})
 
 </script>
 
 <template>
+  <div v-if="results">
+    {{ totalDistance }} meters or {{ totalDistance /1609.34 }} miles since {{results[results.length - 1].start_date_local }}
+    <pre>{{ results }}</pre>
+  </div>
   <div v-if="loggedIn">
     <h1>Welcome!</h1>
     <pre>{{ user }}</pre>
