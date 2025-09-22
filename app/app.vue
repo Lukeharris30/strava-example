@@ -9,7 +9,7 @@ ChartJS.register( Tooltip, BarElement, CategoryScale, LinearScale)
 
 const { loggedIn, user, session, fetch, clear, openInPopup } = useUserSession()
 
-const { data: results, error } = loggedIn ? await useFetch<StravaActivity[]>('/api/activities') : { data: ref<StravaActivity[] | null>(null), error: ref(null) }
+const { data: results, error } = loggedIn.value ? await useFetch<StravaActivity[]>('/api/activities') : { data: ref<StravaActivity[] | null>(null), error: ref(null) }
 
 const totalDistance = computed(() => {
   return results.value?.reduce((a,c) => a + c.distance, 0) ?? 0
