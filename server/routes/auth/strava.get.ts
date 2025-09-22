@@ -5,9 +5,7 @@ export default defineOAuthStravaEventHandler({
   },
   async onSuccess(event, { user, tokens }) {
     await setUserSession(event, {
-      user: {
-        user
-      },
+      user,
       secure: {
         apiToken: tokens.access_token,
         expiresAt: tokens.expires_at,
